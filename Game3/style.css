@@ -1,0 +1,25 @@
+body {
+	background-image: url("Images/untitled-1.png");
+}
+
+#memory_board {
+	background-image: url(Images/tumblr_n8u5u8oyxW1td3b95o1_500.jpg);
+	border:#999 1px solid;
+	width:665px;
+	height:540px;
+	padding:24px;
+	margin:0px auto;
+}
+
+#memory_board > div {
+	background: url();
+	border:#000 1px solid;
+	width:71px;
+	height:71px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+}
