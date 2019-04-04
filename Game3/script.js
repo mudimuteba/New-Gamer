@@ -7,14 +7,14 @@ var Game = {
 
 function newBoard() {
 	var tileDiv = '';
-	var numberOfTiles = prompt('Please enter an even number of tiles between 6 and 20. Otherwise the game will load 10 tiles');
-	numberOfTiles = numberOfTiles >= 6 && numberOfTiles <= 20 && numberOfTiles % 2 == 0 ? numberOfTiles : 10;
+	var numberOfTiles = prompt('Please enter an even number of tiles between 6 and 20. Otherwise the game will load 6 tiles');
+	numberOfTiles = numberOfTiles >= 6 && numberOfTiles <= 20 && numberOfTiles % 2 == 0 ? numberOfTiles : 6;
 	Game.tilesFlipped = 0;
-	Game.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(''); //convert alphabet string to an array
-    Game.letters.shuffle(); //randomize the alphabet array
-    Game.letters = Game.letters.slice(0, numberOfTiles / 2); //select and halve the first n numbers of the randomized alphabet array as it'll to be doubled later to form pairs
-    Game.letters = Game.letters.concat(Game.letters); //duplicate the sliced Game.letters to form pairs
-    Game.letters.shuffle(); //randomize the new array with pairs
+	Game.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');		//[ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", … "Z" ]
+    Game.letters.shuffle();										//[ "I", "N", "W", "Y", "M", "E", "X", "V", "S", "L", … "?" ]
+    Game.letters = Game.letters.slice(0, numberOfTiles / 2);	//[ "I", "N", "W", "Y", "M", "E" ]
+    Game.letters = Game.letters.concat(Game.letters);			//[ "I", "N", "W", "Y", "M", "E", "I", "N", "W", "Y", "M", "E" ]
+    Game.letters.shuffle();										//[ "E", "N", "I", "W", "I", "W", "Y", "Y", "N", "M", "M", "E" ]
 
 	for (var i = 0; i < numberOfTiles; i++) {
 		tileDiv += '<div id="tile_'+i+'" onclick="flipTile(this,\''+Game.letters[i]+'\')"></div>';
@@ -32,14 +32,6 @@ Array.prototype.shuffle = function() {
         this[j] = this[i];
         this[i] = temp;
     }
-}
-
-function unflipTiles() {
-    var tile_1 = document.getElementById(Game.tile_ids[0]);
-    var tile_2 = document.getElementById(Game.tile_ids[1]);
-    tile_1.style.background = tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
-    tile_1.innerHTML = tile_2.innerHTML = "";
-    [Game.selectedTiles, Game.tile_ids] = [[],[]];
 }
 
 function flipTile(tile, letter) {
@@ -61,4 +53,12 @@ function flipTile(tile, letter) {
 			newBoard();
 		}
 	}
+}
+
+function unflipTiles() {
+    var tile_1 = document.getElementById(Game.tile_ids[0]);
+    var tile_2 = document.getElementById(Game.tile_ids[1]);
+    tile_1.style.background = tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+    tile_1.innerHTML = tile_2.innerHTML = "";
+    [Game.selectedTiles, Game.tile_ids] = [[],[]];
 }
